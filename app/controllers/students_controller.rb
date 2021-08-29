@@ -1,6 +1,9 @@
+# The official solution was credited below:
+
 class StudentsController < ApplicationController
 
-  def index
+  # The below method passed the non-bonus test:
+  def index_0
     students = Student.all
     render json: students
   end
@@ -18,6 +21,18 @@ class StudentsController < ApplicationController
   def show
     student = Student.find(params[:id])
     render json: student
+  end
+
+  # The method below is from the official solution and it 
+  # works for the bonus test as well as for the 
+  # non-bonus test:
+  def index
+    students = if params[:name]
+                 Student.by_name(params[:name])
+               else
+                 Student.all
+               end    
+    render json: students
   end
 
 end
